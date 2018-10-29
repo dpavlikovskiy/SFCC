@@ -1,0 +1,57 @@
+/**
+*
+*	Makes request
+*   @param args {Object} 
+*   @return {Object} parsedResponse 
+*/
+
+importPackage( dw.svc );
+importPackage( dw.net );
+importPackage( dw.io );
+importPackage( dw.rpc );
+
+var LocalServiceRegistry = require('dw/svc/LocalServiceRegistry');
+var ServiceUtils = require("int_openpay_core/cartridge/scripts/OpenpayUtilities.js");
+var serviceID : String = ServiceUtils.SERVICES.ServiceID;
+var method : String = ServiceUtils.METHODS.NewOnlineOrder; 
+
+module.exports = LocalServiceRegistry.createService(serviceID, {
+
+	createRequest: function(service, params) {
+
+        service.setRequestMethod(ServiceUtils.CONFIG.SERVICE_METHOD_POST || 'POST');
+        service.addHeader(ServiceUtils.CONFIG.SERVICE_HEADER_CONTENT_TYPE, ServiceUtils.CONFIG.SERVICE_CONTENT_TYPE_XML);
+        service.setEncoding(ServiceUtils.CONFIG.SERVICE_ENCODING_UTF_8);
+		service.setURL(service.configuration.credential.URL + method);
+        
+
+	var strwr = new dw.io.StringWriter();
+	var xsw = new dw.io.XMLStreamWriter(strwr);
+	
+	//xsw.writeStartDocument();
+	xsw.writeStartElement("NewOnlineOrder");
+		xsw.writeStartElement("JamAuthToken");
+			xsw.writeCharacters('30000000000000895|cd8ddfd7-1033-4b93-8cd4-a43bce121747');
+	    xsw.writeEndElement();
+		xsw.writeStartElement("PurchasePrice");
+			xsw.writeCharacters('100');
+	    xsw.writeEndElement();
+	xsw.writeEndElement();
+	//xsw.writeEndDocument();
+	
+	xsw.close()
+	
+	var NewOnlineOrder = strwr.toString();
+
+        let requestBody = NewOnlineOrder;
+        return NewOnlineOrder;
+    },
+	parseResponse: function(service, responseObject) {
+		dw.system.Logger.error('service=parseResponse  ' + responseObject.text);
+        return responseObject.text;
+    },
+    filterLogMessage: function(msg) {
+
+        return filteredMsg;
+    }
+});

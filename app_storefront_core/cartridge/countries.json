@@ -1,0 +1,91 @@
+[{
+    "countryCode": "AU",
+    "name": {
+        "en_AU": "Australia"
+    },
+    "continent": "Australia",
+    "locales": ["en_AU"],
+    "currencyCode": "AUD",
+    "taxation": {
+        "type": "net"
+    },
+    "priceBooks": [
+        "aud-list-prices",
+        "aud-sale-prices"
+    ],
+    "dynamicForms": {
+        "addressDetails": {
+            "country": {
+                "type": "select"
+            },
+            "states": [{
+                "fieldName": "state",
+                "type": "select",
+                "required": true
+            }],
+            "address2": {
+                "help": {
+                    "cid": "",
+                    "label": {
+                        "property": "singleshipping.apofpo",
+                        "file": "checkout"
+                    }
+                }
+            },
+            "phone": {
+                "help": {
+                    "cid": "help-telephone",
+                    "label": {
+                        "property": "singleshipping.phonerequired",
+                        "file": "checkout"
+                    }
+                }
+            }
+        },
+        "giftRegistryEvent" : {
+            "eventaddress": [{
+                "fieldName": "country",
+                "type": "select"
+            }, {
+                "fieldName": "states.state",
+                "type": "select",
+                "required": true
+            }],
+            "type": {
+                "type": "select"
+            }
+        },
+        "giftRegistrySearch": {
+            "simple": {
+                "eventType": {
+                    "type": "select"
+                }
+            },
+            "advanced": {
+                "eventMonth": {
+                    "type": "select"
+                },
+                "eventYear": {
+                    "type": "select"
+                },
+                "eventAddress": [{
+                    "fieldName": "states.state",
+                    "type": "select"
+                }, {
+                    "fieldName": "country",
+                    "type": "select"
+                }]
+            }
+        },
+        "expirationInfo": {
+            "year" : {
+                "type" : "select",
+                "rowclass": "year"
+            },
+            "month" : {
+                "type" : "select",
+                "rowclass": "month"
+            }
+        }
+    }
+}]

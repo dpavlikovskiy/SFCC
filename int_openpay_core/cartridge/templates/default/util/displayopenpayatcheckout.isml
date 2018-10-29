@@ -1,0 +1,32 @@
+<!--- TEMPLATENAME: displayopenpayatcheckout.isml --->
+<iscontent type="text/html" charset="UTF-8" compact="true"/>
+<isinclude template="util/modules"/>
+
+<isset name="context" value="${'checkout'}" scope="page"/>
+<isset name="productPrice" value="${pdict.productprice}" scope="page"/> 
+
+<isscript>
+	var sitePreferences = require("int_openpay_core/cartridge/scripts/OpenpayUtilities.js").getSitePreferencesUtilities();
+	var isOpenpayEnabled = true;
+	if (sitePreferences) {
+		isOpenpayEnabled = sitePreferences.isOpenpayEnabled();
+    	var openpayLogoStyle = sitePreferences.getLogoStyle();
+		var openpayWidgetFormat = sitePreferences.getOpenpayWidgetFormat(openpayWidget);
+		//var openpayTagLine : String = sitePreferences.getOpenpayTagLine(openpayMessage);
+		var openpayMinPrice = Number(sitePreferences.getOpenpayMinPrice());
+		var openpayMaxPrice = Number(sitePreferences.getOpenpayMaxPrice());
+		var openpayWidgetStyle = sitePreferences.getOpenpayWidgetStyle();
+		var openpayBrandLink = sitePreferences.getOpenpayBrandLink();
+		var openpayPlanDuration = Number(sitePreferences.getOpenpayPlanDuration());
+		var widgetTextType2 = sitePreferences.getWidgetTextType2();
+		var widgetTextType1 = sitePreferences.getWidgetTextType1();
+		var isOpenpayShowOnPage = sitePreferences.isOpenpayShowOnPage(context);
+		var getInfoLink = sitePreferences.getInfoLink();
+	}
+</isscript>
+
+<isif condition="${isOpenpayEnabled && isOpenpayShowOnPage}">
+	<div>
+		
+	</div>
+</isif>

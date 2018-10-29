@@ -1,0 +1,101 @@
+<iscontent type="text/html" charset="UTF-8" compact="true"/>
+
+<isset name="context" value="${ pdict.context || 'default'}" scope="page"/>
+<isset name="ProductID" value="${ pdict.productid || null}" scope="page"/>
+<isset name="productPrice" value="${pdict.productprice}" scope="page"/>
+ <!--- <isset name="productPrice" value="${StringUtils.format(dw.value.Money(pdict.productprice), '0.00' )}" scope="page"/> 
+  <isset name="productPrice" value="${StringUtils.format(pdict.productprice, '0.00')}" scope="page"/> --->
+<isset name="openpayWidget" value="${context+'OpenpayWidgetFormat'}" scope="page"/>    <!--- categoryWedgetFormat: categoryTextnImage--->
+<isset name="openpayMessage" value="${context+'Message'}" scope="page"/>		<!--- categoryMessage: categoryText--->
+
+<isset name="isSFRA" value="${pdict.issfra}" scope="page"/>
+<isif condition="${isSFRA != true}">
+	<isinclude template="util/modules"/>
+<iselse>
+	<isinclude template="components/modules"/>	
+</isif>
+
+<isscript>
+
+	var ProductMgr = require('dw/catalog/ProductMgr');
+	//var product : Product = ProductID;
+	var product = ProductMgr.getProduct(ProductID);
+	var category : Category = product.variant ? product.masterProduct.primaryCategory : product.primaryCategory;
+	//var product : Product = Product; 
+	//var category : Category = product.primaryCategory;
+	var getCategoryOpenpayflag = category && 'setCategoryOpenpayflag' in category.custom ? category.custom.setCategoryOpenpayflag : '';
+	var isShowOpenpayThisSKUFlag = false;
+	
+	if (getCategoryOpenpayflag || getCategoryOpenpayflag == "Selected Products" ) {	
+		isShowOpenpayThisSKUFlag =	'showOpenpayWidget' in product.custom ? product.custom.showOpenpayWidget : true;
+		
+	} else if ((getCategoryOpenpayflag || getCategoryOpenpayflag == "Entire Category" )) {
+		isShowOpenpayThisSKUFlag = true;
+	}
+
+	var sitePreferences = require("int_openpay_core/cartridge/scripts/OpenpayUtilities.js").getSitePreferencesUtilities();
+	var isOpenpayEnabled = true;
+	if (sitePreferences) {
+		isOpenpayEnabled = sitePreferences.isOpenpayEnabled();
+		var openpayLogoStyle = sitePreferences.getLogoStyle();
+		var openpayWidgetFormat = sitePreferences.getOpenpayWidgetFormat(openpayWidget);
+		//var openpayTagLine : String = sitePreferences.getOpenpayTagLine(openpayMessage);
+		var openpayMinPrice = Number(sitePreferences.getOpenpayMinPrice());
+		var openpayMaxPrice = Number(sitePreferences.getOpenpayMaxPrice());
+		var openpayWidgetStyle = sitePreferences.getOpenpayWidgetStyle();
+		var openpayBrandLink = sitePreferences.getOpenpayBrandLink();
+		var openpayPlanDuration = Number(sitePreferences.getOpenpayPlanDuration());
+		var widgetTextType2 = sitePreferences.getWidgetTextType2();
+		var widgetTextType1 = sitePreferences.getWidgetTextType1();
+		var isOpenpayShowOnPage = sitePreferences.isOpenpayShowOnPage(context);
+		var getInfoLink = sitePreferences.getInfoLink();
+		
+		//var isOpenpayShowOnProduct = Number(sitePreferences.isOpenpayShowOnProduct());
+		//var isOpenpayShowOnCheckout = Number(sitePreferences.isOpenpayShowOnCheckout());
+		
+	} else {
+		isOpenpayEnabled = false;
+		// TODO Print error
+	}
+	
+	var easyPayment = 1;
+	if (openpayPlanDuration == 2) { 
+		easyPayment = (productPrice / 5).toFixed(2); 
+	} else if (openpayPlanDuration == 3) {
+		easyPayment = (productPrice / 7).toFixed(2);
+	} else if (openpayPlanDuration == 4) {
+		easyPayment = (productPrice / 9).toFixed(2);
+	} else {
+		easyPayment = ((productPrice * 20) / 100).toFixed(2);
+	}
+</isscript> 
+
+<isset name="isUnderPriceRange" value="${productPrice > openpayMinPrice && productPrice < openpayMaxPrice}" scope="page"/> <!--- --->
+<isif condition="${isOpenpayEnabled && isOpenpayShowOnPage}">
+	<isif condition="${isShowOpenpayThisSKUFlag && isUnderPriceRange}">
+		<div class="openpay-widget">
+			<isif condition="${openpayWidgetFormat == 'tagLineImage'}"> 
+				<span style="${openpayWidgetStyle}"><isprint value="${widgetTextType2}" /></span>
+			<iselse/>
+				<span style="${openpayWidgetStyle}"><isprint value="${StringUtils.format(widgetTextType1, ((openpayPlanDuration*2)+1), easyPayment)}" /> </span>
+			</isif>
+			
+			<isif condition="${openpayWidgetFormat == 'fullText'}">
+				<span style="${openpayBrandLink}">
+					<a href="${URLUtils.url('')}">
+						<isprint value="${Resource.msg('openpay.brand.link','openpay',null)}" />
+					</a>
+				</span>
+			<iselse/>
+				<span style="display: inline-block;position: relative;top: 4px;"><iscontentasset aid="${'openpay'+openpayLogoStyle}" /></span>
+			</isif>
+
+			<iscomment>If Learn more is enabled </iscomment> 
+			<isif condition="${context.toLowerCase() == 'product'}">	
+				<isset name="dynamicLink" value="${'openpay.'+getInfoLink}" scope="page"/>
+				<a style="" href="${URLUtils.url('')}"><isprint value="${Resource.msg(dynamicLink,'openpay',null)}" /></a>
+			</isif>
+		</div>
+	</isif>
+</isif>
+

@@ -1,0 +1,20 @@
+{  
+   "compilerOptions": {  
+   "noLib": true,  
+   "target": "es5",  
+   "baseUrl": "./",  
+   "paths": {  
+   "*" : ["./*", "modules/*", "/Users/irshadahmed/Dropbox/mac/takeaway/demandware/Ideatarmac/dw-api-types/*"]  
+  }  
+  },  
+   "typeAcquisition": {  
+   "enable": true  
+  },  
+   "include": [  
+   "/Users/irshadahmed/Dropbox/mac/takeaway/demandware/Ideatarmac/dw-api-types/*.d.ts",  
+   "/Users/irshadahmed/Dropbox/mac/takeaway/demandware/Ideatarmac/dw-api-types/**/*.d.ts",  
+   "./*/cartridge/scripts/**/*.js",  
+   "./*/cartridge/controllers/**/*.js",  
+   "./modules/**/*.js"  
+  ]  
+}

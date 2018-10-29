@@ -1,0 +1,30 @@
+<iscontent type="text/html" charset="UTF-8" compact="true"/>
+
+<iscomment>
+    Render the Openpay messages on category & product page. 
+</iscomment>
+
+<ismodule template="util/displayopenpaymessage"
+    name="displayopenpaymessage"
+    attribute="context"
+    attribute="product"
+    attribute="productprice"
+/>
+
+<iscomment>
+    Render the Openpay messages for accelerator widget. 
+</iscomment>
+
+<ismodule template="util/displayacceleratorwidget"
+    name="displayacceleratorwidget"
+    attribute="context"
+    attribute="totalprice"
+/>
+<iscomment>
+    Render the Openpay messages for Checkout widget. 
+</iscomment>
+
+<ismodule template="util/displayopenpayatcheckout"
+    name="displayopenpayatcheckout"
+    attribute="totalprice"
+/>
