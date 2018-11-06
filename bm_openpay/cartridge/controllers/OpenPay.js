@@ -13,7 +13,7 @@ var PaymentMgr = require('dw/order/PaymentMgr');
 var Transaction = require('dw/system/Transaction');
 
 var sitePreferences = require("~/cartridge/scripts/util/OpenpayUtilities.js").getSitePreferencesUtilities();
-var ctrlCartridgeName = sitePreferences ? sitePreferences.getControllerCartridgeName() : 'app_storefront_controller';
+var ctrlCartridgeName = sitePreferences.getControllerCartridgeName();
 
 /* Script Modules */
 var app = require(ctrlCartridgeName + '/cartridge/scripts/app'),

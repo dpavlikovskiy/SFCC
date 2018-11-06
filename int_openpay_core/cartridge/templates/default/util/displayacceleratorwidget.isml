@@ -7,7 +7,7 @@
 <isset name="totalPrice1" value="${StringUtils.formatNumber(pdict.totalprice, '0.00')}" scope="page"/>
 
 <isscript>
-	var sitePreferences = require("int_openpay_core/cartridge/scripts/OpenpayUtilities.js").getSitePreferencesUtilities();
+	var sitePreferences = require("int_openpay_core/cartridge/scripts/utils/OpenpayUtilities.js").getSitePreferencesUtilities();
 	var isOpenpayEnabled = true;
 	if(sitePreferences) {
 		isOpenpayEnabled = sitePreferences.isOpenpayEnabled();
@@ -23,7 +23,7 @@
 		if(totalPrice <= openpayMinPrice ) {
 			additionalPurchase = StringUtils.formatNumber((Number(openpayMinPrice) - Number(totalPrice)), '0.00' );
 		} else {
-			//var isOpenpayEnabled = false;
+			var isOpenpayEnabled = false;
 		}
 		 
 		
@@ -47,7 +47,7 @@
 </isif>
 
 <isif condition="${isOpenpayEnabled && isOpenpayShowOnPage}">
-	<div class="">
+	<div class="openpay-accelerator">
 		<isset name="currentLogoID" value="${'openpay'+openpayLogoStyle}" scope="page"/>
 		<iscontentasset aid="${currentLogoID}" />
 		<span style="${openpayWidgetStyle}"> <isprint value="${StringUtils.format(openpayAcceleratorText, additionalPurchase)}" /> </span>

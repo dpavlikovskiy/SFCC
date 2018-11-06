@@ -27,4 +27,5 @@
 <ismodule template="util/displayopenpayatcheckout"
     name="displayopenpayatcheckout"
     attribute="totalprice"
+    attribute="context"
 />

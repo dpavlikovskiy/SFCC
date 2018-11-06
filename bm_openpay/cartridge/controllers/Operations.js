@@ -20,16 +20,22 @@ var log = LogUtils.getLogger("Operations");
  * redirects to specific actions
  * */
 function performAction(){
-	var action = request.httpParameterMap.action.value,
-		orderNo = request.httpParameterMap.orderno.value,
-		amount = request.httpParameterMap.amount.value,
-		bulkCompleteArray = request.httpParameterMap.bulkComplete.value,
-		transActions = require("~/cartridge/scripts/TransActions"),
-		result;
+	let params = request.httpParameterMap; 
+	let orderNo = params.isParameterSubmitted("orderno") ? params.orderno.value : "";
+	let planID = params.isParameterSubmitted("planID") ? params.planID.value : "";
+	let amount = params.isParameterSubmitted("amount") ? params.amount.value : "";
+	let fullRefund = params.isParameterSubmitted("fullRefund") ? params.fullRefund.value : "";
+	let action = "refund";
 	
+	if (orderNo === '' || planID === '' || amount === '' || fullRefund === '') {
+		Logger.error("Exception in Operation-performAction: Some parameters are empty");
+        return;
+	}
+	var transActions = require("bm_openpay/cartridge/scripts/TransActions.js"),
+		result;
 	switch(action){
 		case "refund":
-			result = transActions.refund(orderNo, amount);
+			result = transActions.refund(orderNo, planID, amount, fullRefund);
 			break;
 	}
 	

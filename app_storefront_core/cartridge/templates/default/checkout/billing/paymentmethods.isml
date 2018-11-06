@@ -142,7 +142,11 @@
 		<div class="payment-method <isif condition="${!empty(pdict.selectedPaymentID) && pdict.selectedPaymentID=='Openpay'}">payment-method-expanded</isif>" data-method="Openpay">
 		    <iscomment>Openpay</iscomment>
 			<isinclude template="util/modulesopenpay"/>
-			<isdisplayopenpayatcheckout totalprice="${pdict.OrderTotal}"/>
+			<div class="checkout-logo">
+				<iscontentasset aid="${'openpay'+dw.system.Site.getCurrent().getCustomPreferenceValue('openpayLogoType').value}" />
+			</div>
+			<isdisplayopenpayatcheckout context="checkout" issfra="${false}" totalprice="${pdict.OrderTotal}" />
+			
 			
 		</div>
 		<div class="payment-method <isif condition="${!empty(pdict.selectedPaymentID) && pdict.selectedPaymentID=='PayPal'}">payment-method-expanded</isif>" data-method="Custom">

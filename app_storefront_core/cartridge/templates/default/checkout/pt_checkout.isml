@@ -18,6 +18,7 @@
 
 	<isinclude template="components/header/htmlhead"/>
 	<isinclude template="checkout/pt_checkout_UI"/>
+	<link rel="stylesheet" href="${URLUtils.staticURL('/css/openpaystyle.css')}" />
 
 	<iscomment>Add template-specific header information here.</iscomment>
 

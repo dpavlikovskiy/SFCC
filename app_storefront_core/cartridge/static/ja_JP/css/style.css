@@ -2156,6 +2156,9 @@ div.error {
   padding-top: .75em;
   width: 20%; }
 
+.pt_checkout .form-row-button {
+  text-align: center; }
+
 .item-list {
   margin-bottom: 1em; }
   .item-list tr {
@@ -3336,6 +3339,9 @@ nav[role="navigation"] {
   display: block;
   margin: 1em 0;
   text-align: center; }
+
+mini-cart-totals .openpay-accelerator {
+  padding: 0 10px 5px; }
 
 .breadcrumb {
   font-size: 1em;
@@ -5043,7 +5049,8 @@ footer {
 .payment-method-options .form-row {
   clear: none;
   float: left;
-  width: 30%; }
+  width: auto;
+  min-width: 30%; }
 
 .payment-method {
   clear: both;

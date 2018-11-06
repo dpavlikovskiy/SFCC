@@ -117,6 +117,15 @@ var createOpenpaySitePreferencesUtilities = Class.extend({
     	return Site.getCurrent().getCustomPreferenceValue('enableOpenpay') || false;
     },
     
+    getAuthToken: function() {
+    	return Site.getCurrent().getCustomPreferenceValue('openpayJamAuthToken');
+    },
+    
+    getJamAuthToken: function() {
+    	var test = this.getAuthToken();
+    	return Site.getCurrent().getCustomPreferenceValue('openpayMerchantID') + '|' + this.getAuthToken();
+    }
+    
 });
 
 var getSitePreferencesUtilities = function() {

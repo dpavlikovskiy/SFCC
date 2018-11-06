@@ -23,7 +23,7 @@
 	Menu Action as part of the site main menu (positioned at the bottom of the site main menu)
 -->
 <menuitem id="customsitemenuextension_id01" position="99999" site="true">
-  <name xml:lang="x-default">Open Pay</name>
+  <name xml:lang="x-default">Openpay</name>
   <short_description xml:lang="x-default">
 	Open Pay Payment Solution.
   </short_description>
@@ -45,6 +45,7 @@
   <sub-pipelines>
      <pipeline name="OpenPay-OrderList" />
      <pipeline name="OpenPay-OrderDetails" />
+     <pipeline name="Operations-Action" />
   </sub-pipelines>
   <icon>icons/star_yellow_new.gif</icon>
 </menuaction>

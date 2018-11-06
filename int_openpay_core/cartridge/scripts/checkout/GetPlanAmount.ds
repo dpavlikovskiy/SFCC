@@ -1,0 +1,28 @@
+/**
+ * GetPlanAmount.ds
+ *
+ * This script calculates the intalment amount based on the plan duration period *
+ */
+
+function GetPlanAmount() {}
+
+GetPlanAmount.processPlans = function(orderTotal, planDuration)
+{
+	
+	var payAmount;
+	if(planDuration == 2) { 
+		payAmount = (orderTotal / 5).toFixed(2); 
+	} else if(planDuration == 3) {
+		payAmount = (orderTotal / 7).toFixed(2); 
+	} else if(planDuration == 4) {
+		payAmount = (orderTotal / 9).toFixed(2);
+	} else {
+		payAmount = ((orderTotal * 20) / 100).toFixed(2);
+	}
+	return payAmount;
+}
+
+
+if (typeof (exports) !== 'undefined') {
+    exports.GetPlanAmount = GetPlanAmount;
+}

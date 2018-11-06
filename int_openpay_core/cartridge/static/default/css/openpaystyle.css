@@ -1,0 +1,103 @@
+.openpay-checkout-widget {
+    border-collapse: separate;
+    border: solid #C0C0C0 1px;
+    border-radius: 6px;
+    width: 373px;
+    height: auto;
+    background-color: #F5F5F5;
+    margin-bottom: 30px;
+    margin-left: 212px;
+    margin-top: -34px; }
+  
+  .first-content, .third-content {
+    border-collapse: separate;
+    border: solid #4169E1 1px;
+    border-radius: 25px;
+    margin-top: 25px;
+    width: 230px;
+    margin-left: 70px;
+    text-align: center;
+    height: 40px;
+    background-color: white;
+    padding-top: 12px; }
+  
+  .single-plan-text {
+    margin-top: 7px; }
+  
+  .openpay-button {
+    background-color: silver;
+    border-radius: 5px;
+    border-color: silver;
+    width: 125px;
+    height: 22px; }
+  
+  button.openpay-button:hover {
+    background-color: #c8d7ff;
+    border-color: silver; }
+  
+  .openpay-button-text {
+    color: #FFFFFF;
+    font-size: 10px;
+    position: absolute;
+    right: 263px;
+    bottom: 150px; }
+  
+  .two-plan {
+        margin-bottom: 33px;
+      margin-top: 15px;
+      margin-left: 124px; }
+  
+  .first-content {
+    margin-top: 37px; }
+  
+  .second-content{
+      position: relative;
+      top: 13px;
+  }
+  
+  .second-content, .fourth-content {
+    text-align: center;
+    }
+  
+  .fourth-content {
+    padding-top: 26px;
+    width: 203px;
+    padding-left: 84px; }
+  
+  .proceed {
+    padding-top: 11px;
+    width: 203px;
+    padding-left: 89px; }
+  
+  .fifth-content {
+    width: 229px;
+    padding-bottom: 35px;
+    padding-left: 77px; }
+  
+  .checkout-logo {
+    position: relative;
+    margin-left: 513px;
+    bottom: 51px; }
+  
+  button.section-1 {
+    margin-top: 19px;
+    margin-bottom: 16px;
+    margin-left: 113px; }
+  
+  #plan-duration {
+    font-size: 31px;
+    padding-left: 32px;
+    margin-top: -3px;
+    float: left; }
+  
+  #widget-text {
+    text-align: left;
+    width: 80px;
+    margin-left: 61px;
+     }
+  
+  #plan-amount {
+    font-size: 21px;
+    padding-left: 111px;
+    position: relative;
+    bottom: 23px; }

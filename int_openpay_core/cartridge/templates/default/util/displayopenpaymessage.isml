@@ -33,7 +33,7 @@
 		isShowOpenpayThisSKUFlag = true;
 	}
 
-	var sitePreferences = require("int_openpay_core/cartridge/scripts/OpenpayUtilities.js").getSitePreferencesUtilities();
+	var sitePreferences = require("int_openpay_core/cartridge/scripts/utils/OpenpayUtilities.js").getSitePreferencesUtilities();
 	var isOpenpayEnabled = true;
 	if (sitePreferences) {
 		isOpenpayEnabled = sitePreferences.isOpenpayEnabled();
@@ -89,7 +89,6 @@
 			<iselse/>
 				<span style="display: inline-block;position: relative;top: 4px;"><iscontentasset aid="${'openpay'+openpayLogoStyle}" /></span>
 			</isif>
-
 			<iscomment>If Learn more is enabled </iscomment> 
 			<isif condition="${context.toLowerCase() == 'product'}">	
 				<isset name="dynamicLink" value="${'openpay.'+getInfoLink}" scope="page"/>

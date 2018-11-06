@@ -43,7 +43,6 @@ openpay-configs {
 }
 .openpay-module .operations-holder button {
 	border-radius: 0;
-    padding: 5px 30px;
     color: #fff;
     background-color: #808080;
     border-color: #808080;
@@ -67,7 +66,7 @@ openpay-configs {
 	
 }
 .openpay-module .current-status {
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 }
 .openpay-module .current-status span{
 	color: #84bd00;

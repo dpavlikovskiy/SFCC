@@ -96,8 +96,7 @@ function getCustomerPaymentInstruments(userPaymentInstruments) {
 
         result.cardTypeImage = {
             src: URLUtils.staticURL('/images/' +
-                paymentInstrument.creditCardType.toLowerCase().replace(/\s/g, '') +
-                '-dark.svg'),
+                paymentInstrument.creditCardType),
             alt: paymentInstrument.creditCardType
         };
 

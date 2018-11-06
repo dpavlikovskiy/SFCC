@@ -1,32 +1,123 @@
 <!--- TEMPLATENAME: displayopenpayatcheckout.isml --->
-<iscontent type="text/html" charset="UTF-8" compact="true"/>
-<isinclude template="util/modules"/>
+<iscontent type="text/html" charset="UTF-8" compact="true" />
 
-<isset name="context" value="${'checkout'}" scope="page"/>
-<isset name="productPrice" value="${pdict.productprice}" scope="page"/> 
+<isset name="context" value="${ pdict.context || 'checkout'}" scope="page" />
+<isset name="orderTotal" value="${pdict.OrderTotal}" scope="page" />
 
-<isscript>
-	var sitePreferences = require("int_openpay_core/cartridge/scripts/OpenpayUtilities.js").getSitePreferencesUtilities();
-	var isOpenpayEnabled = true;
-	if (sitePreferences) {
-		isOpenpayEnabled = sitePreferences.isOpenpayEnabled();
-    	var openpayLogoStyle = sitePreferences.getLogoStyle();
-		var openpayWidgetFormat = sitePreferences.getOpenpayWidgetFormat(openpayWidget);
-		//var openpayTagLine : String = sitePreferences.getOpenpayTagLine(openpayMessage);
-		var openpayMinPrice = Number(sitePreferences.getOpenpayMinPrice());
-		var openpayMaxPrice = Number(sitePreferences.getOpenpayMaxPrice());
-		var openpayWidgetStyle = sitePreferences.getOpenpayWidgetStyle();
-		var openpayBrandLink = sitePreferences.getOpenpayBrandLink();
-		var openpayPlanDuration = Number(sitePreferences.getOpenpayPlanDuration());
-		var widgetTextType2 = sitePreferences.getWidgetTextType2();
-		var widgetTextType1 = sitePreferences.getWidgetTextType1();
-		var isOpenpayShowOnPage = sitePreferences.isOpenpayShowOnPage(context);
-		var getInfoLink = sitePreferences.getInfoLink();
-	}
+<isset name="openpayWidget" value="${context+'OpenpayWidgetFormat'}" scope="page" />
+
+<isset name="isSFRA" value="${pdict.issfra}" scope="page" />
+<isif condition="${isSFRA != true}"> 
+	<isinclude template="util/modules" /> 
+<iselse> 
+	<isinclude template="components/modules" />
+</isif>
+
+<isscript> 
+var sitePreferences =
+require("int_openpay_core/cartridge/scripts/utils/OpenpayUtilities.js").getSitePreferencesUtilities();
+
+var isOpenpayEnabled = true; 
+if (sitePreferences) { 
+	isOpenpayEnabled = sitePreferences.isOpenpayEnabled(); 
+	var openpayWidgetFormat = sitePreferences.getOpenpayWidgetFormat(openpayWidget); 
+	var openpayWidgetStyle = sitePreferences.getOpenpayCheckoutWidgetStyle(); 
+	var openpayPlanDuration = Number(sitePreferences.getOpenpayPlanDuration()); 
+	var twoPlanDuration = sitePreferences.getOpenpayTwoPlanDuration(); 
+	var widgetText = sitePreferences.getCheckoutWidgetText(); 
+	var isOpenpayShowOnPage = sitePreferences.isOpenpayShowOnPage(context); 
+} 
 </isscript>
 
+<isscript> 
+	var getPlanAmount = require("int_openpay_core/cartridge/scripts/checkout/GetPlanAmount").GetPlanAmount;
+
+	if(openpayWidgetFormat == 'twoFortNightlyPaymentAndSubmit' || openpayWidgetFormat == 'twoFortNightlyPaymentAndProceed'){ 
+		var firstPlanAmount = getPlanAmount.processPlans(orderTotal, Number(twoPlanDuration[0])); 
+		var secondPlanAmount = getPlanAmount.processPlans(orderTotal, Number(twoPlanDuration[1]));
+	}
+
+	if(openpayWidgetFormat == 'oneFortNightlyPaymentAndSubmit' || openpayWidgetFormat == 'oneFortNightlyPaymentAndProceed'){ var
+		planAmount = getPlanAmount.processPlans(orderTotal, Number(twoPlanDuration[0])); 
+	} 
+</isscript>
+
+
 <isif condition="${isOpenpayEnabled && isOpenpayShowOnPage}">
-	<div>
+
+	<div class="openpay-checkout-widget">
+		<isif condition="${openpayWidgetFormat == 'twoFortNightlyPaymentAndSubmit'}">
+			<div class= "first-content">
+				<div id = "plan-duration" style="${openpayWidgetStyle}"><isprint value="${(Number(twoPlanDuration[0])*2+1).toFixed(0)}" /></div>
+				<div id = "widget-text" style="${openpayWidgetStyle}"><isprint value="${widgetText}" /></div>
+				<div id = "plan-amount" style="${openpayWidgetStyle}">
+					<isprint value="${dw.value.Money(firstPlanAmount, dw.system.Site.getCurrent().getDefaultCurrency()).toFormattedString()}" />
+				</div>
+			</div>
+			<div class= "second-content">${Resource.msg('openpay.or', 'openpay', null)}</div>
+			
+			<div class= "third-content">
+				<div id = "plan-duration" style="${openpayWidgetStyle}"><isprint value="${(Number(twoPlanDuration[1])*2+1).toFixed(0)}" /></div>
+				<div id = "widget-text" style="${openpayWidgetStyle}"><isprint value="${widgetText}" /></div>
+				<div id = "plan-amount" style="${openpayWidgetStyle}">
+					<isprint value="${dw.value.Money(secondPlanAmount, dw.system.Site.getCurrent().getDefaultCurrency()).toFormattedString()}" />
+				</div>
+			</div>
+			<div class= "fourth-content"><span style="${openpayWidgetStyle}">${Resource.msg('default.checkout.content', 'openpay', null)}</div>
+			<div class= "fifth-content"><span style="${openpayWidgetStyle}">${Resource.msg('redirect.to.openpay', 'openpay', null)}</div>
+		</isif>
 		
+		<isif condition="${openpayWidgetFormat == 'twoFortNightlyPaymentAndProceed'}">
+			
+			<div class= "first-content">
+				<div id = "plan-duration" style="${openpayWidgetStyle}"><isprint value="${(Number(twoPlanDuration[0])*2+1).toFixed(0)}" /></div>
+				<div id = "widget-text" style="${openpayWidgetStyle}"><isprint value="${widgetText}" /></div>
+				<div id = "plan-amount" style="${openpayWidgetStyle}">
+					<isprint value="${dw.value.Money(firstPlanAmount, dw.system.Site.getCurrent().getDefaultCurrency()).toFormattedString()}" />
+				</div>
+			</div>
+			<div class= "second-content">${Resource.msg('openpay.or', 'openpay', null)}</div>
+			
+			<div class= "third-content">
+				<div id = "plan-duration" style="${openpayWidgetStyle}"><isprint value="${(Number(twoPlanDuration[1])*2+1).toFixed(0)}" /></div>
+				<div id = "widget-text" style="${openpayWidgetStyle}"><isprint value="${widgetText}" /></div>
+				<div id = "plan-amount" style="${openpayWidgetStyle}">
+					<isprint value="${dw.value.Money(secondPlanAmount, dw.system.Site.getCurrent().getDefaultCurrency()).toFormattedString()}" />
+				</div>
+			</div><br>
+			
+			<div class= "fourth-content proceed"><span style="${openpayWidgetStyle}">${Resource.msg('default.checkout.content', 'openpay', null)}</span></div>
+			<div class="checkout-proceed">
+				<button class="openpay-button two-plan" type="submit" name="${Resource.msg('openpay.checkout.content', 'openpay', null)}" value="${Resource.msg('openpay.checkout.content', 'openpay', null)}">
+					<span class ="openpay-button-text">${Resource.msg('openpay.checkout.content', 'openpay', null)}</span>
+				</button>
+			</div>
+		</isif>
+		
+		<isif condition="${openpayWidgetFormat == 'oneFortNightlyPaymentAndSubmit'}">
+			<div class= "first-content single-plan-1">
+				<div id = "plan-duration"  style="${openpayWidgetStyle}"><isprint value="${(Number(twoPlanDuration[0])*2+1).toFixed(0)}" /></div>
+				<div id = "widget-text" style="${openpayWidgetStyle}"><isprint value="${widgetText}" /></div>
+				<div id = "plan-amount" style="${openpayWidgetStyle}">
+					<isprint value="${dw.value.Money(planAmount, dw.system.Site.getCurrent().getDefaultCurrency()).toFormattedString()}" />
+				</div>
+				
+			</div>
+			<div class= "fourth-content single-plan-text"><span style="${openpayWidgetStyle}">${Resource.msg('default.checkout.content', 'openpay', null)}</div><br>
+			<div class= "fifth-content"><span style="${openpayWidgetStyle}">${Resource.msg('redirect.to.openpay', 'openpay', null)}</span>
+		</isif>
+		 
+		<isif condition="${openpayWidgetFormat == 'oneFortNightlyPaymentAndProceed'}">
+			<div class= "first-content single-plan">
+				<div id = "plan-duration" style="${openpayWidgetStyle}"><isprint value="${(Number(twoPlanDuration[0])*2+1).toFixed(0)}" /></div>
+				<div id = "widget-text" style="${openpayWidgetStyle}"><isprint value="${widgetText}" /></div>
+				<div id = "plan-amount" style="${openpayWidgetStyle}"><isprint value="${dw.value.Money(planAmount, dw.system.Site.getCurrent().getDefaultCurrency()).toFormattedString()}" /></div>
+			</div>	 
+			<div class="checkout-proceed">
+				<button class="openpay-button section-1" type="submit" name="${Resource.msg('openpay.checkout.content', 'openpay', null)}" value="${Resource.msg('openpay.checkout.content', 'openpay', null)}">
+					<div class ="openpay-button-text">${Resource.msg('openpay.checkout.content', 'openpay', null)}</div>
+				</button>
+			</div>
+		</isif>
 	</div>
 </isif>
