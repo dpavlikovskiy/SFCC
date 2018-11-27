@@ -3343,6 +3343,9 @@ nav[role="navigation"] {
 mini-cart-totals .openpay-accelerator {
   padding: 0 10px 5px; }
 
+.openpay-accelerator {
+  padding: 8px; }
+
 .breadcrumb {
   font-size: 1em;
   line-height: 1em;
@@ -5924,6 +5927,9 @@ h1 .account-logout {
         float: left;
         width: 33.33333333333333333%; } }
 
+.product-tile .openpay-widget img {
+  box-shadow: none; }
+
 .ui-dialog #listings-nav {
   float: right;
   margin-top: 2%; }
@@ -6595,7 +6601,3 @@ h1 .account-logout {
   .pt_order-confirmation .header-banner,
   .pt_order-confirmation #navigation {
     display: none; } }
-
-.openpay-accelerator {
-	padding: 0 10px 10px;
-}

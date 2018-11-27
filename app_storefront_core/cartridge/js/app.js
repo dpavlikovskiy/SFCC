@@ -110,7 +110,15 @@ function initializeEvents() {
             }
         });
     });
-
+    $('.openpay-overview').on('click', function (e) {
+        e.preventDefault();
+        dialog.open({
+            url: $(e.target).attr('href'),
+            options: {
+                
+            }
+        });
+    });
     $('.consent-tracking-policy').on('click', function (e) {
         e.preventDefault();
         consentTracking.show();

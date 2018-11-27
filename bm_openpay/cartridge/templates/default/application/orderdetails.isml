@@ -109,25 +109,25 @@
  	<tbody>
 		<tr>
 			<td class="table_detail left e w s" nowrap="nowrap"><label class="item-label" for="">${Resource.msg('payment.total','openpay',null)}</label></td>
-			<td class="table_detail left e s" nowrap="nowrap" width="75%><label class="item-label" for="">${order.getTotalGrossPrice()}</label></td>
+			<td class="table_detail left e s" nowrap="nowrap" width="75%"><label class="item-label" for="">${order.getTotalGrossPrice()}</label></td>
 		</tr>
 		<tr>
 			<td class="table_detail left e w s" nowrap="nowrap"><label class="item-label" for="">${Resource.msg('payment.planID','openpay',null)}</label></td>
-			<td class="table_detail left e s" nowrap="nowrap" width="75%><label class="item-label" for="">${planID}</label></td>
+			<td class="table_detail left e s" nowrap="nowrap" width="75%"><label class="item-label" for="">${planID}</label></td>
 		</tr>
 		<tr>
 			<td class="table_detail left e w s" nowrap="nowrap"><label class="item-label" for="">${Resource.msg('payment.refundHistory','openpay',null)}</label></td>
-			<td class="table_detail left e s" nowrap="nowrap" width="75%><label class="item-label" for="">${refundHistory}</label></td>
+			<td class="table_detail left e s" nowrap="nowrap" width="75%"><label id="refundHistory" class="item-label" for="">${refundHistory}</label></td>
 		</tr>
 		<tr>
 			<td class="table_detail left e w s" nowrap="nowrap"><label class="item-label" for="">${Resource.msg('payment.status','openpay',null)}</label></td>
-			<td class="table_detail left e s" nowrap="nowrap" width="75%><label class="item-label" for="">${planStatus}</label></td>
+			<td class="table_detail left e s" nowrap="nowrap" width="75%"><label class="item-label" for="">${planStatus}</label></td>
 		</tr>
 		<iscomment>Payment Details 
 		<isset name="paymentProcessor" value="${dw.order.PaymentMgr.getPaymentMethod(paymentInstrument.getPaymentMethod()).getPaymentProcessor()}" scope ="page"/>
 		<tr>
 			<td class="table_detail left e w s" nowrap="nowrap"><label class="item-label" for="">${Resource.msg('payment.method','openpay',null)}</label></td>
-			<td class="table_detail left e s" nowrap="nowrap" width="75%><label class="item-label" for="">
+			<td class="table_detail left e s" nowrap="nowrap" width="75%"><label class="item-label" for="">
 				${paymentInstrument.paymentMethod}<br>
 				${Resource.msg('payment.processor','openpay',null) +' '+ paymentProcessor.getID()}<br>
 				${Resource.msg('payment.transaction','openpay',null) +' '+ orderNo}<br>
@@ -137,7 +137,7 @@
 		</iscomment>
 		<tr>
 			<td class="table_detail left e w s" nowrap="nowrap"><label class="item-label" for="">${Resource.msg('payment.billing.address','openpay',null)}</label></td>
-			<td class="table_detail left e s" nowrap="nowrap" width="75%><label class="item-label" for=""></label>
+			<td class="table_detail left e s" nowrap="nowrap" width="75%"><label class="item-label" for=""></label>
 				${order.getBillingAddress().firstName+' '+order.getBillingAddress().lastName}<br>
 				${order.getBillingAddress().address1}<br>${order.getBillingAddress().address2 ? order.getBillingAddress().address2 : ''}
 				${order.getBillingAddress().city+' '+order.getBillingAddress().stateCode+' '+order.getBillingAddress().postalCode}<br>
@@ -149,21 +149,23 @@
 
 <div class="title"><h1>${Resource.msg('operations.title','openpay',null)}</h1></div>
 <div class="current-status">
-	<strong>${Resource.msg('operations.submit.label','openpay',null)}:</strong>
+	<strong>${Resource.msg('operations.refund.label','openpay',null)}:</strong>
+	<isprint value="${Resource.msg('operations.refund.hints','openpay',null)}" />
 </div>
 
 <isif condition="${canRefund}">
 	<div class="operations-container">
 		<div class="operations-holder">
-			<table cellpadding="0" cellspacing="0">
+			<table cellpadding="1" cellspacing="0">
 				<tr>
+					<td>Available to refund:</td>
 					<td colspan="2">
-					    <input name="amount" value="${order.getTotalGrossPrice().value}" data-refundhistory="${refundHistory}">
-						<button name="submit" class="button">${Resource.msg('operations.submit.label','openpay',null)}</button>
+					    <input name="amount">
 						<input type="hidden" name="planID" value="${planID}">
 						<input type="hidden" name="orderno" value="${orderNo}">
 						<input type="hidden" name="total" value="${order.getTotalGrossPrice().value}">
 					</td>
+					<td><button name="submit" class="button">${Resource.msg('operations.submit.label','openpay',null)}</button></td> 
 				</tr>
 				<tr>
 					<td colspan="2" class="error"></td>

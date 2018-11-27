@@ -5,16 +5,11 @@
  *
  */
 
-var sitePreferences = require("~/cartridge/scripts/util/OpenpayUtilities.js").getSitePreferencesUtilities();
-var ctrlCartridgeName = sitePreferences.getControllerCartridgeName();
-
 /* Script Modules */
-var app = require(ctrlCartridgeName + '/cartridge/scripts/app');
-var guard = require(ctrlCartridgeName + '/cartridge/scripts/guard');
+var guard = require('~/cartridge/scripts/guard');
 
 var LogUtils = require('~/cartridge/scripts/util/LogUtils');
-
-var log = LogUtils.getLogger("Operations");
+var logger = LogUtils.getLogger("Operations");
 
 /**
  * redirects to specific actions

@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://www.demandware.com/xml/impex/metadata/2006-10-31">
+    <type-extension type-id="Category">
+        <custom-attribute-definitions>
+            <attribute-definition attribute-id="setCategoryOpenpayflag">
+                <type>enum-of-string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <value-definitions>
+                    <value-definition default="true">
+                        <value>Entire Category</value>
+                    </value-definition>
+                    <value-definition>
+                        <value>Selected Products</value>
+                    </value-definition>
+                </value-definitions>
+            </attribute-definition>
+        </custom-attribute-definitions>
+        <group-definitions>
+            <attribute-group group-id="customAttributes">
+                <display-name xml:lang="x-default">Custom</display-name>
+                <attribute attribute-id="setCategoryOpenpayflag"/>
+            </attribute-group>
+        </group-definitions>
+    </type-extension>
+
+    <type-extension type-id="Order">
+        <custom-attribute-definitions>
+            <attribute-definition attribute-id="openpayIsOpOrder">
+                <display-name xml:lang="x-default">Openpay Payment Method</display-name>
+                <type>boolean</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="openpayOrderStatus">
+                <display-name xml:lang="x-default">Online Order Status</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="openpayPlanID">
+                <display-name xml:lang="x-default">Openpay Plan ID</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="openpayPlanStatus">
+                <display-name xml:lang="x-default">Online Plan Status</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="openpayRefundHistory">
+                <display-name xml:lang="x-default">Openpay Refund History</display-name>
+                <type>text</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+        </custom-attribute-definitions>
+        <group-definitions>
+            <attribute-group group-id="Openpay">
+                <display-name xml:lang="x-default">Openpay</display-name>
+                <attribute attribute-id="openpayIsOpOrder"/>
+                <attribute attribute-id="openpayPlanID"/>
+                <attribute attribute-id="openpayPlanStatus"/>
+                <attribute attribute-id="openpayOrderStatus"/>
+                <attribute attribute-id="openpayRefundHistory"/>
+            </attribute-group>
+        </group-definitions>
+    </type-extension>
+
+    <type-extension type-id="Product">
+        <custom-attribute-definitions>
+            <attribute-definition attribute-id="showOpenpayWidget">
+                <display-name xml:lang="x-default">Show Openpay widget</display-name>
+                <type>boolean</type>
+                <site-specific-flag>false</site-specific-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <visible-flag>true</visible-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <order-required-flag>false</order-required-flag>
+                <externally-defined-flag>false</externally-defined-flag>
+            </attribute-definition>
+        </custom-attribute-definitions>
+        <group-definitions>
+            <attribute-group group-id="storefrontAttributes">
+                <display-name xml:lang="x-default">Storefront Attributes</display-name>
+                <attribute attribute-id="showOpenpayWidget"/>
+            </attribute-group>
+        </group-definitions>
+    </type-extension>
+
+    <type-extension type-id="SitePreferences">
+        <custom-attribute-definitions>
+            <attribute-definition attribute-id="categoryOpenpayWidgetFormat">
+                <display-name xml:lang="x-default">Category widget format</display-name>
+                <type>enum-of-string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <value-definitions>
+                    <value-definition default="true">
+                        <display xml:lang="x-default">Text and image widget</display>
+                        <value>textImage</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">Tag Line and image widget</display>
+                        <value>tagLineImage</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">Text and icon widget</display>
+                        <value>textIcon</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">Full text widget</display>
+                        <value>fullText</value>
+                    </value-definition>
+                </value-definitions>
+            </attribute-definition>
+            <attribute-definition attribute-id="checkoutOpenpayWidgetFormat">
+                <display-name xml:lang="x-default">Checkout widget format</display-name>
+                <type>enum-of-string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <value-definitions>
+                    <value-definition default="true">
+                        <display xml:lang="x-default">Two different Instalments and submit order</display>
+                        <value>twoFortNightlyPaymentAndSubmit</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">Two different Instalments and proceed to openpay</display>
+                        <value>twoFortNightlyPaymentAndProceed</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">one type instalment and submit order</display>
+                        <value>oneFortNightlyPaymentAndSubmit</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">one type instalment and proceed to openpay</display>
+                        <value>oneFortNightlyPaymentAndProceed</value>
+                    </value-definition>
+                </value-definitions>
+            </attribute-definition>
+            <attribute-definition attribute-id="checkoutWidgetText">
+                <display-name xml:lang="x-default">Checkout Widget Text(No. of payment and amount)</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+                <default-value>{0} fortnightly payments of ${1}</default-value>
+            </attribute-definition>
+            <attribute-definition attribute-id="isOpenpayEnabled">
+                <display-name xml:lang="x-default">Is Openpay Enabled</display-name>
+                <type>boolean</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <default-value>true</default-value>
+            </attribute-definition>
+            <attribute-definition attribute-id="isOpenpayShowOncategory">
+                <display-name xml:lang="x-default">Show Category Page Widget</display-name>
+                <type>boolean</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <default-value>true</default-value>
+            </attribute-definition>
+            <attribute-definition attribute-id="isOpenpayShowOncheckout">
+                <display-name xml:lang="x-default">Show Checkout Widget</display-name>
+                <type>boolean</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <default-value>true</default-value>
+            </attribute-definition>
+            <attribute-definition attribute-id="isOpenpayShowOnminicart">
+                <display-name xml:lang="x-default">Show Accelerator Widget</display-name>
+                <type>boolean</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <default-value>true</default-value>
+            </attribute-definition>
+            <attribute-definition attribute-id="isOpenpayShowOnproduct">
+                <display-name xml:lang="x-default">Show Product Widget</display-name>
+                <type>boolean</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <default-value>true</default-value>
+            </attribute-definition>
+            <attribute-definition attribute-id="openPaySelectTwoPlans">
+                <display-name xml:lang="x-default">Select Two Plans</display-name>
+                <type>set-of-int</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="openpayAcceleratorText">
+                <display-name xml:lang="x-default">Accelerator Text</display-name>
+                <description xml:lang="x-default">Spend an additional $50.00 and use Openapy to pay overtime interest free.</description>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+                <default-value>Spend an additional ${0} and use Openapy to pay over time interest free.</default-value>
+            </attribute-definition>
+            <attribute-definition attribute-id="openpayBrandLink">
+                <display-name xml:lang="x-default">Hyperlink Style</display-name>
+                <description xml:lang="x-default">font-family: inherit; color: inherit; font-size: inherit;</description>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+                <default-value>font-family: inherit; color: inherit; font-size: inherit;</default-value>
+            </attribute-definition>
+            <attribute-definition attribute-id="openpayButtonHoverBackgroundColor">
+                <display-name xml:lang="x-default">Background Color from Openpay Button when you mouseover it</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="openpayButtonStyle">
+                <display-name xml:lang="x-default">Style from Openpay Button</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="openpayButtonText">
+                <display-name xml:lang="x-default">Text from Openpay Button</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="openpayCheckoutWidgetStyle">
+                <display-name xml:lang="x-default">Checkout Widget Style</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="openpayControllerCartridge">
+                <display-name xml:lang="x-default">Storefront Controller Cartridge Name</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="openpayCoreCartridge">
+                <display-name xml:lang="x-default">Storefront Core Cartridge Name</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="openpayEndpoint">
+                <display-name xml:lang="x-default"> Endpoint</display-name>
+                <description xml:lang="x-default">Openpay Endpoint URL for API requests</description>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="openpayHandoverURL">
+                <display-name xml:lang="x-default">Openpay Handover URL</display-name>
+                <description xml:lang="x-default">Destination for Openpay redirection</description>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="openpayInfoLink">
+                <display-name xml:lang="x-default">Information link type</display-name>
+                <type>enum-of-string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <value-definitions>
+                    <value-definition default="true">
+                        <display xml:lang="x-default">Learn more</display>
+                        <value>learnMore</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">Info</display>
+                        <value>info</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">More Info</display>
+                        <value>moreInfo</value>
+                    </value-definition>
+                </value-definitions>
+            </attribute-definition>
+            <attribute-definition attribute-id="openpayJamAuthToken">
+                <display-name xml:lang="x-default">Openpay Auth Token</display-name>
+                <description xml:lang="x-default">Authentication Token for Openpay REST API communication</description>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="openpayLogoType">
+                <display-name xml:lang="x-default">Choose Logo</display-name>
+                <type>enum-of-string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <value-definitions>
+                    <value-definition default="true">
+                        <value>LogoColor</value>
+                    </value-definition>
+                    <value-definition>
+                        <value>LogoBlack</value>
+                    </value-definition>
+                    <value-definition>
+                        <value>LogoGrey</value>
+                    </value-definition>
+                    <value-definition>
+                        <value>LogoWhite</value>
+                    </value-definition>
+                    <value-definition>
+                        <value>IconColor</value>
+                    </value-definition>
+                    <value-definition>
+                        <value>IconBlack</value>
+                    </value-definition>
+                    <value-definition>
+                        <value>IconGrey</value>
+                    </value-definition>
+                    <value-definition>
+                        <value>IconWhite</value>
+                    </value-definition>
+                </value-definitions>
+            </attribute-definition>
+            <attribute-definition attribute-id="openpayMaxPrice">
+                <display-name xml:lang="x-default">Widget Maximum Price</display-name>
+                <type>double</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <default-value>10000.0</default-value>
+            </attribute-definition>
+            <attribute-definition attribute-id="openpayMerchantID">
+                <display-name xml:lang="x-default">Merchant ID</display-name>
+                <description xml:lang="x-default">Openpay Merchant ID</description>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="openpayMinPrice">
+                <display-name xml:lang="x-default">Widget Minimum Price</display-name>
+                <type>double</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <default-value>1.0</default-value>
+            </attribute-definition>
+            <attribute-definition attribute-id="openpayPlanDuration">
+                <display-name xml:lang="x-default">Plan Duration</display-name>
+                <type>enum-of-string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <value-definitions>
+                    <value-definition default="true">
+                        <display xml:lang="x-default">Months</display>
+                        <value>2</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">Months</display>
+                        <value>3</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">Months</display>
+                        <value>4</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">Months</display>
+                        <value>2-48</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">Months</display>
+                        <value>6</value>
+                    </value-definition>
+                </value-definitions>
+            </attribute-definition>
+            <attribute-definition attribute-id="openpayPopUpBackgroundColor">
+                <display-name xml:lang="x-default">Openpay Pop-Up Background Color</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="openpayPopUpOpacity">
+                <display-name xml:lang="x-default">Openpay Pop-Up Opacity</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="openpayPriceRangeBox">
+                <display-name xml:lang="x-default">Openpay Price Range Box</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="openpayTagline">
+                <display-name xml:lang="x-default">Openpay Tagline</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="openpayTimeout">
+                <display-name xml:lang="x-default">Openpay Timeout</display-name>
+                <description xml:lang="x-default">Timeout for API requests</description>
+                <type>double</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <default-value>3000.0</default-value>
+            </attribute-definition>
+            <attribute-definition attribute-id="openpayWidgetStyle">
+                <display-name xml:lang="x-default">Widget Style</display-name>
+                <description xml:lang="x-default">font-family: inherit; color: inherit; font-size: inherit;</description>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+                <default-value>font-family: inherit; color: inherit; font-size: inherit;</default-value>
+            </attribute-definition>
+            <attribute-definition attribute-id="openpayWidgetTextType1">
+                <display-name xml:lang="x-default">Widget Text (No. of payment and amount)</display-name>
+                <description xml:lang="x-default">Number of payment and amount&#13;
+Ex: Or 7 payments of $12.27 with Openpay</description>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+                <default-value>Or {0} payments of ${1} with Openpay</default-value>
+            </attribute-definition>
+            <attribute-definition attribute-id="openpayWidgetTextType2">
+                <display-name xml:lang="x-default">Widget Text (Promotion)</display-name>
+                <description xml:lang="x-default">Or buy now and pay later with Openpay</description>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+                <default-value>Or buy now and pay later with</default-value>
+            </attribute-definition>
+            <attribute-definition attribute-id="productOpenpayWidgetFormat">
+                <display-name xml:lang="x-default">Product widget format</display-name>
+                <type>enum-of-string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <value-definitions>
+                    <value-definition default="true">
+                        <display xml:lang="x-default">Text and image widget</display>
+                        <value>textImage</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">Tag Line and image widget</display>
+                        <value>tagLineImage</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">Text and icon widget</display>
+                        <value>textIcon</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">Full text widget</display>
+                        <value>fullText</value>
+                    </value-definition>
+                </value-definitions>
+            </attribute-definition>
+        </custom-attribute-definitions>
+        <group-definitions>
+            <attribute-group group-id="Openpay General Config">
+                <display-name xml:lang="x-default">Openpay General Configuration</display-name>
+                <attribute attribute-id="isOpenpayEnabled"/>
+                <attribute attribute-id="openpayMerchantID"/>
+                <attribute attribute-id="openpayJamAuthToken"/>
+                <attribute attribute-id="openpayHandoverURL"/>
+                <attribute attribute-id="openpayEndpoint"/>
+                <attribute attribute-id="openpayPlanDuration"/>
+                <attribute attribute-id="openpayMinPrice"/>
+                <attribute attribute-id="openpayMaxPrice"/>
+                <attribute attribute-id="openpayWidgetStyle"/>
+                <attribute attribute-id="openpayLogoType"/>
+                <attribute attribute-id="openpayControllerCartridge"/>
+                <attribute attribute-id="openpayCoreCartridge"/>
+            </attribute-group>
+            <attribute-group group-id="Openpay Category Config">
+                <display-name xml:lang="x-default">Openpay Category and Product Configuration</display-name>
+                <attribute attribute-id="isOpenpayShowOncategory"/>
+                <attribute attribute-id="isOpenpayShowOnproduct"/>
+                <attribute attribute-id="categoryOpenpayWidgetFormat"/>
+                <attribute attribute-id="productOpenpayWidgetFormat"/>
+                <attribute attribute-id="openpayWidgetTextType2"/>
+                <attribute attribute-id="openpayWidgetTextType1"/>
+                <attribute attribute-id="openpayInfoLink"/>
+                <attribute attribute-id="openpayBrandLink"/>
+            </attribute-group>
+            <attribute-group group-id="Openpay Checkout Config">
+                <display-name xml:lang="x-default">Openpay Checkout Configuration</display-name>
+                <attribute attribute-id="isOpenpayShowOncheckout"/>
+                <attribute attribute-id="checkoutWidgetText"/>
+                <attribute attribute-id="checkoutOpenpayWidgetFormat"/>
+                <attribute attribute-id="openpayCheckoutWidgetStyle"/>
+                <attribute attribute-id="openPaySelectTwoPlans"/>
+                <attribute attribute-id="openpayButtonStyle"/>
+                <attribute attribute-id="openpayButtonHoverBackgroundColor"/>
+                <attribute attribute-id="openpayButtonText"/>
+                <attribute attribute-id="isOpenpayShowOnminicart"/>
+                <attribute attribute-id="openpayAcceleratorText"/>
+            </attribute-group>
+            <attribute-group group-id="Openpay Popup Config">
+                <display-name xml:lang="x-default">Openpay Popup Configuration</display-name>
+                <attribute attribute-id="openpayPopUpBackgroundColor"/>
+                <attribute attribute-id="openpayTagline"/>
+                <attribute attribute-id="openpayPopUpOpacity"/>
+                <attribute attribute-id="openpayPriceRangeBox"/>
+            </attribute-group>
+        </group-definitions>
+    </type-extension>
+
+</metadata>

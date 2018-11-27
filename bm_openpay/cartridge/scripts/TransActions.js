@@ -12,17 +12,11 @@ importPackage( dw.io );
 
 /* API Includes */
 var OrderMgr = require('dw/order/OrderMgr');
-var Pipeline = require('dw/system/Pipeline');
-var PaymentMgr = require('dw/order/PaymentMgr');
 var Transaction = require('dw/system/Transaction');
-var Resource = require('dw/web/Resource');
 
-var sitePreferences = require("~/cartridge/scripts/util/OpenpayUtilities.js").getSitePreferencesUtilities();
-var ctrlCartridgeName = sitePreferences.getControllerCartridgeName();
+var OpenpayUtils = require("~/cartridge/scripts/util/OpenpayUtilities.js");
 
 /* Script Modules */
-var app = require(ctrlCartridgeName +'/cartridge/scripts/app');
-var guard = require(ctrlCartridgeName +'/cartridge/scripts/guard');
 var LogUtils = require('~/cartridge/scripts/util/LogUtils');
 var Logger = LogUtils.getLogger('TransActions');
 
@@ -50,11 +44,10 @@ function execute( pdict : PipelineDictionary ) : Number
  * Refund action
  * */
 function refund(orderNo, planID, amount, fullRefund){
-	var ServiceUtils = require("int_openpay_core/cartridge/scripts/services/OpenpayHttpService.js");
-	var OpenUtils = require("int_openpay_core/cartridge/scripts/utils/OpenpayUtilities.js");
+	var ServiceUtils = require("~/cartridge/scripts/services/OpenpayHttpService.js");
 	var param = {};
 	param.body = getRequestBody(planID, amount, fullRefund);
-	param.method =  OpenUtils.METHODS.OnlineOrderReduction;
+	param.method =  OpenpayUtils.METHODS.OnlineOrderReduction;
 	var response = ServiceUtils.call(param);
 	
 	try {
@@ -85,10 +78,10 @@ function getRequestBody(planID, amount, fullRefund) {
 	//xsw.writeStartDocument();
 	xsw.writeStartElement("OnlineOrderReduction");
 	xsw.writeStartElement("JamAuthToken");
-	xsw.writeCharacters(sitePreferences.getJamAuthToken());
+	xsw.writeCharacters(OpenpayUtils.getJamAuthToken());
     xsw.writeEndElement();
     xsw.writeStartElement("AuthToken");
-    xsw.writeCharacters(sitePreferences.getAuthToken());
+    xsw.writeCharacters(OpenpayUtils.getAuthToken());
     xsw.writeEndElement();
     xsw.writeStartElement("PlanID");
 	xsw.writeCharacters(planID);
@@ -114,17 +107,14 @@ function getRequestBody(planID, amount, fullRefund) {
  * */
 function updateOrderStatus(orderNo, amount, fullRefund){
 	var Order = OrderMgr.getOrder(orderNo);
-	if (!Order && (!('openpayRefundHistory' in Order.custom) || !('openpayPlanStatus' in Order.custom))) {
-		Logger.error("Exception: Custom variable openpayRefundHistory or openpayPlanStatus is not existing");
-		return;
-	}
+
 	var refundedHistory = [];
 	var today = new Date();
 	try{
 		if (Order.custom.openpayRefundHistory) {
 			var refundedHistory = JSON.parse(Order.custom.openpayRefundHistory);
 		}
-		refundedHistory.push({date:today.toString(),value:amount})
+		refundedHistory.push({date:today.toString(),value:amount});
 		Transaction.begin();
 		if (fullRefund == 'true') {
             Order.custom.openpayPlanStatus = 'Finished';

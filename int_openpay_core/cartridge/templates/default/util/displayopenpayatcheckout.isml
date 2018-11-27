@@ -26,6 +26,10 @@ if (sitePreferences) {
 	var twoPlanDuration = sitePreferences.getOpenpayTwoPlanDuration(); 
 	var widgetText = sitePreferences.getCheckoutWidgetText(); 
 	var isOpenpayShowOnPage = sitePreferences.isOpenpayShowOnPage(context); 
+	var buttonStyle = sitePreferences.getButtonStyle();
+	var buttonText = sitePreferences.getButtonText();
+	var buttonBackgroundColor = sitePreferences.getButtonBackgroundColor();
+	var buttonHoverBackgroundColor = sitePreferences.getButtonHoverBackgroundColor();
 } 
 </isscript>
 
@@ -33,12 +37,12 @@ if (sitePreferences) {
 	var getPlanAmount = require("int_openpay_core/cartridge/scripts/checkout/GetPlanAmount").GetPlanAmount;
 
 	if(openpayWidgetFormat == 'twoFortNightlyPaymentAndSubmit' || openpayWidgetFormat == 'twoFortNightlyPaymentAndProceed'){ 
-		var firstPlanAmount = getPlanAmount.processPlans(orderTotal, Number(twoPlanDuration[0])); 
+		var firstPlanAmount = getPlanAmount.processPlans(orderTotal, Number(twoPlanDuration[0]));
 		var secondPlanAmount = getPlanAmount.processPlans(orderTotal, Number(twoPlanDuration[1]));
 	}
 
-	if(openpayWidgetFormat == 'oneFortNightlyPaymentAndSubmit' || openpayWidgetFormat == 'oneFortNightlyPaymentAndProceed'){ var
-		planAmount = getPlanAmount.processPlans(orderTotal, Number(twoPlanDuration[0])); 
+	if(openpayWidgetFormat == 'oneFortNightlyPaymentAndSubmit' || openpayWidgetFormat == 'oneFortNightlyPaymentAndProceed'){ 
+		var planAmount = getPlanAmount.processPlans(orderTotal, Number(twoPlanDuration[0])); 
 	} 
 </isscript>
 
@@ -51,7 +55,7 @@ if (sitePreferences) {
 				<div id = "plan-duration" style="${openpayWidgetStyle}"><isprint value="${(Number(twoPlanDuration[0])*2+1).toFixed(0)}" /></div>
 				<div id = "widget-text" style="${openpayWidgetStyle}"><isprint value="${widgetText}" /></div>
 				<div id = "plan-amount" style="${openpayWidgetStyle}">
-					<isprint value="${dw.value.Money(firstPlanAmount, dw.system.Site.getCurrent().getDefaultCurrency()).toFormattedString()}" />
+					<isprint value="${Number(firstPlanAmount)}" />
 				</div>
 			</div>
 			<div class= "second-content">${Resource.msg('openpay.or', 'openpay', null)}</div>
@@ -88,8 +92,8 @@ if (sitePreferences) {
 			
 			<div class= "fourth-content proceed"><span style="${openpayWidgetStyle}">${Resource.msg('default.checkout.content', 'openpay', null)}</span></div>
 			<div class="checkout-proceed">
-				<button class="openpay-button two-plan" type="submit" name="${Resource.msg('openpay.checkout.content', 'openpay', null)}" value="${Resource.msg('openpay.checkout.content', 'openpay', null)}">
-					<span class ="openpay-button-text">${Resource.msg('openpay.checkout.content', 'openpay', null)}</span>
+				<button class="openpay-button two-plan" style="${buttonStyle}" onmouseover="this.style.backgroundColor=${buttonHoverBackgroundColor};" onmouseout="this.style.backgroundColor=${buttonBackgroundColor};"  type="submit" name="${Resource.msg('openpay.checkout.content', 'openpay', null)}" value="${Resource.msg('openpay.checkout.content', 'openpay', null)}">
+					<span class ="openpay-button-text">${buttonText}</span>
 				</button>
 			</div>
 		</isif>
@@ -111,10 +115,10 @@ if (sitePreferences) {
 			<div class= "first-content single-plan">
 				<div id = "plan-duration" style="${openpayWidgetStyle}"><isprint value="${(Number(twoPlanDuration[0])*2+1).toFixed(0)}" /></div>
 				<div id = "widget-text" style="${openpayWidgetStyle}"><isprint value="${widgetText}" /></div>
-				<div id = "plan-amount" style="${openpayWidgetStyle}"><isprint value="${dw.value.Money(planAmount, dw.system.Site.getCurrent().getDefaultCurrency()).toFormattedString()}" /></div>
+				<div id = "plan-amount" style="${openpayWidgetStyle}"><isprint value="${dw.value.Money(firstPlanAmount, dw.system.Site.getCurrent().getDefaultCurrency()).toFormattedString()}" /></div>
 			</div>	 
 			<div class="checkout-proceed">
-				<button class="openpay-button section-1" type="submit" name="${Resource.msg('openpay.checkout.content', 'openpay', null)}" value="${Resource.msg('openpay.checkout.content', 'openpay', null)}">
+				<button class="openpay-button two-plan" style="${buttonStyle}" onmouseover="this.style.backgroundColor=${buttonHoverBackgroundColor};" onmouseout="this.style.backgroundColor=${buttonBackgroundColor};"  type="submit" name="${Resource.msg('openpay.checkout.content', 'openpay', null)}" value="${Resource.msg('openpay.checkout.content', 'openpay', null)}">
 					<div class ="openpay-button-text">${Resource.msg('openpay.checkout.content', 'openpay', null)}</div>
 				</button>
 			</div>

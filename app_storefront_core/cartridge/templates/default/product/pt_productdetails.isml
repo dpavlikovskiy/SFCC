@@ -19,6 +19,7 @@
 	<isinclude template="product/pt_productdetails_UI"/>
 
 	<link rel="canonical" href="${URLUtils.url('Product-Show','pid', pdict.Product.ID)}"/>
+	<link rel="stylesheet" href="${URLUtils.staticURL('/css/openpaystyle.css')}" />
 
 </head>
 <body>

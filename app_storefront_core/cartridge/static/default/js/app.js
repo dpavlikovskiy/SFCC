@@ -220,6 +220,16 @@ function initializeEvents() {
             }
         });
     });
+    
+    $('.openpay-overview').on('click', function (e) {
+        e.preventDefault();
+        dialog.open({
+            url: $(e.target).attr('href'),
+            options: {
+                width: 	600
+            }
+        });
+    });
 
     $('.consent-tracking-policy').on('click', function (e) {
         e.preventDefault();

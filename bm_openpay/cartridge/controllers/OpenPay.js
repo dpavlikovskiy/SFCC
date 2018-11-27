@@ -4,20 +4,9 @@
  * Controller for Order management pages
  *
  */
-
-/* API Includes */
-var OrderMgr = require('dw/order/OrderMgr');
-var URLUtils = require('dw/web/URLUtils');
-var Pipeline = require('dw/system/Pipeline');
-var PaymentMgr = require('dw/order/PaymentMgr');
-var Transaction = require('dw/system/Transaction');
-
-var sitePreferences = require("~/cartridge/scripts/util/OpenpayUtilities.js").getSitePreferencesUtilities();
-var ctrlCartridgeName = sitePreferences.getControllerCartridgeName();
-
 /* Script Modules */
-var app = require(ctrlCartridgeName + '/cartridge/scripts/app'),
-	guard = require(ctrlCartridgeName + '/cartridge/scripts/guard'),
+var app = require('~/cartridge/scripts/app'),
+	guard = require('~/cartridge/scripts/guard'),
 	LogUtils = require('~/cartridge/scripts/util/LogUtils'),
 	Logger = LogUtils.getLogger("Openpay");
 
@@ -48,13 +37,10 @@ function orderList(){
 function orderDetails(){
 	app.getView().render("application/orderdetails");
 }
-function documentation(){
-	app.getView().render("application/documentation");
-}
+
 /*
  * Exposed web methods
  */
 
 exports.OrderList = guard.ensure(['get'], orderList);
 exports.OrderDetails = guard.ensure(['get'], orderDetails);
-//exports.Documentation = guard.ensure(['get'], documentation);

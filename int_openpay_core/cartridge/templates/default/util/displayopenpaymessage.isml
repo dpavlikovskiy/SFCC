@@ -6,7 +6,7 @@
  <!--- <isset name="productPrice" value="${StringUtils.format(dw.value.Money(pdict.productprice), '0.00' )}" scope="page"/> 
   <isset name="productPrice" value="${StringUtils.format(pdict.productprice, '0.00')}" scope="page"/> --->
 <isset name="openpayWidget" value="${context+'OpenpayWidgetFormat'}" scope="page"/>    <!--- categoryWedgetFormat: categoryTextnImage--->
-<isset name="openpayMessage" value="${context+'Message'}" scope="page"/>		<!--- categoryMessage: categoryText--->
+<isset name="openpayTagMessage" value="${context+'OpenpayTagMessage'}" scope="page"/>		<!--- categoryMessage: categoryText--->
 
 <isset name="isSFRA" value="${pdict.issfra}" scope="page"/>
 <isif condition="${isSFRA != true}">
@@ -39,7 +39,7 @@
 		isOpenpayEnabled = sitePreferences.isOpenpayEnabled();
 		var openpayLogoStyle = sitePreferences.getLogoStyle();
 		var openpayWidgetFormat = sitePreferences.getOpenpayWidgetFormat(openpayWidget);
-		//var openpayTagLine : String = sitePreferences.getOpenpayTagLine(openpayMessage);
+		var openpayTagLine : String = sitePreferences.getOpenpayTagMessage(openpayTagMessage);
 		var openpayMinPrice = Number(sitePreferences.getOpenpayMinPrice());
 		var openpayMaxPrice = Number(sitePreferences.getOpenpayMaxPrice());
 		var openpayWidgetStyle = sitePreferences.getOpenpayWidgetStyle();
@@ -75,16 +75,14 @@
 	<isif condition="${isShowOpenpayThisSKUFlag && isUnderPriceRange}">
 		<div class="openpay-widget">
 			<isif condition="${openpayWidgetFormat == 'tagLineImage'}"> 
-				<span style="${openpayWidgetStyle}"><isprint value="${widgetTextType2}" /></span>
+				<span style="${openpayWidgetStyle}"><isprint value="${openpayTagLine}" /></span>
 			<iselse/>
 				<span style="${openpayWidgetStyle}"><isprint value="${StringUtils.format(widgetTextType1, ((openpayPlanDuration*2)+1), easyPayment)}" /> </span>
 			</isif>
 			
 			<isif condition="${openpayWidgetFormat == 'fullText'}">
 				<span style="${openpayBrandLink}">
-					<a href="${URLUtils.url('')}">
-						<isprint value="${Resource.msg('openpay.brand.link','openpay',null)}" />
-					</a>
+					<isprint value="${Resource.msg('openpay.brand.link','openpay',null)}" />
 				</span>
 			<iselse/>
 				<span style="display: inline-block;position: relative;top: 4px;"><iscontentasset aid="${'openpay'+openpayLogoStyle}" /></span>
@@ -92,7 +90,7 @@
 			<iscomment>If Learn more is enabled </iscomment> 
 			<isif condition="${context.toLowerCase() == 'product'}">	
 				<isset name="dynamicLink" value="${'openpay.'+getInfoLink}" scope="page"/>
-				<a style="" href="${URLUtils.url('')}"><isprint value="${Resource.msg(dynamicLink,'openpay',null)}" /></a>
+				<a style="" class="openpay-overview" href="${URLUtils.url('OpenpayContent-Overview')}"><isprint value="${Resource.msg(dynamicLink,'openpay',null)}" /></a>
 			</isif>
 		</div>
 	</isif>

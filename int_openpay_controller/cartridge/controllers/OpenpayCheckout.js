@@ -78,6 +78,8 @@ function continueOpenpay() {
     	} else if (request.httpParameterMap.status.stringValue === "FAILURE" || request.httpParameterMap.status.stringValue === "CANCELLED") {
     		Transaction.begin();
     			var stat = OrderMgr.failOrder(order);
+    			order.custom.openpayOrderStatus = 'Fail';
+    			order.custom.openpayPlanStatus = 'Fail';
     		Transaction.commit();
     	}
     }

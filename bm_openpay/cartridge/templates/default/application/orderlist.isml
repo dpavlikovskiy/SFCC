@@ -57,9 +57,9 @@
 		        	<isset name="calendarDate" value="${dw.util.Calendar(order.getCreationDate())}" scope="page"/>
 		            <isset name="creationDate" value="${dw.util.StringUtils.formatCalendar(dw.util.Calendar(calendarDate), 'yyyy-MM-dd HH:mm')}" scope="page"/>
 		        	<td class="table_detail left e s" nowrap="nowrap"><label class="item-label" for="">${creationDate}</label></td>
-		            <td class="table_detail left e s" nowrap="nowrap">${order.getCustomerEmail()}</td>
+		            <td class="table_detail left e s" nowrap="nowrap">${order.getCustomerEmail() || Resource.msg('order.guest.email','openpay',null)}</td>
 		            <td class="table_detail right e s" nowrap="nowrap">${order.getTotalGrossPrice()}</td>
-		            <td class="table_detail right e s" nowrap="nowrap">${order.custom.openpayOrderStatus}</td>
+					<td class="table_detail right e s" nowrap="nowrap">${'openpayOrderStatus' in order.custom ? order.custom.openpayOrderStatus : 'Failed'}</td>
 		        </tr>
 			</isloop>
 	    </tbody>

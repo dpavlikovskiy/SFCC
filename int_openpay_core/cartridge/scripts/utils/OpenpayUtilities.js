@@ -49,6 +49,9 @@ var createOpenpaySitePreferencesUtilities = Class.extend({
 	getLogoStyle : function () {
 		return Site.getCurrent().getCustomPreferenceValue('openpayLogoType') ? Site.getCurrent().getCustomPreferenceValue('openpayLogoType').value : 'Color';
 	},
+	getOpenpayTagMessage : function (openpayTagMessage) {
+		return Site.getCurrent().getCustomPreferenceValue(openpayTagMessage) || 'prodOpenpayTagMessage';
+	},
 	getWidgetTextType2 : function () {
 		return Site.getCurrent().getCustomPreferenceValue('openpayWidgetTextType2') || 'Or buy now and pay later with';
 	},
@@ -69,7 +72,38 @@ var createOpenpaySitePreferencesUtilities = Class.extend({
     },
     getEndpoint: function() {
     	return Site.getCurrent().getCustomPreferenceValue('openpayEndpoint');
-    }
+    },
+    getOpenpayPriceRangeBox : function () {
+		return Site.getCurrent().getCustomPreferenceValue('openpayPriceRangeBox') || '';
+	},
+	getOpenpayTagline : function () {
+		return Site.getCurrent().getCustomPreferenceValue('openpayTagline') || 'Buy now. Pay smarter.';
+	},
+	getButtonStyle : function () {
+		return Site.getCurrent().getCustomPreferenceValue('openpayButtonStyle') || 'background-color: silver; color: black; border-color: silver;';
+	},
+	getButtonText : function () {
+		return Site.getCurrent().getCustomPreferenceValue('openpayButtonText') || 'Proceed to Openpay';
+	},
+	getButtonHoverBackgroundColor : function () {
+		var color = Site.getCurrent().getCustomPreferenceValue('openpayButtonHoverBackgroundColor') || '#c8d7ff';
+		return "'" + color + "'";
+	},
+	getButtonBackgroundColor : function () {
+		var str = Site.getCurrent().getCustomPreferenceValue('openpayButtonStyle') || 'background-color: silver; color: black; border-color: silver;';
+		var n = str.indexOf('background-color');
+	    var i = str.indexOf(';', n);
+	    return (n == -1 || i == -1) ? "'silver'" : "'" + str.substring(n+18, i) + "'";		
+	},
+	getPopUpBackgroundImage : function () {
+		return Site.getCurrent().getCustomPreferenceValue('openpayPopUpPicture') || '';
+	},
+	getPopUpBackgroundColor : function () {
+		return Site.getCurrent().getCustomPreferenceValue('openpayPopUpBackgroundColor') || '';
+	},
+	getPopUpOpacity : function () {
+		return Site.getCurrent().getCustomPreferenceValue('openpayPopUpOpacity') || '';
+	}
 //	isOpenpayShowOnCheckout : function () {
 //		return Site.getCurrent().getCustomPreferenceValue('isOpenpayShowOnCheckout') || true;
 //	}

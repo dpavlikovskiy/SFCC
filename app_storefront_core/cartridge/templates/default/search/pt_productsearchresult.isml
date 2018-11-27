@@ -26,7 +26,7 @@
 	</isif>
 
 	<iscomment>Add  template-specific header information here.</iscomment>
-
+	<link rel="stylesheet" href="${URLUtils.staticURL('/css/openpaystyle.css')}" />
 </head>
 <body>
 

@@ -54,11 +54,15 @@ openpay-configs {
 	color: #fff;
 }
 .openpay-module .operations-holder table {
-	width: 245px;
+	border-collapse: collapse;
 }
 .openpay-module .operations-holder table td {
-	padding: 5px 0;
+	border: 1px solid;
+	padding: 4px;
 }
+.openpay-module .operations-holder table td.error {
+	border: none;
+ }
 .openpay-module .operations-holder table td label {
 	margin:0;
 }

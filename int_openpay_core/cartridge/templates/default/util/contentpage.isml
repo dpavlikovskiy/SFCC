@@ -1,0 +1,83 @@
+<!--- TEMPLATENAME: contentpage.isml --->
+<iscontent type="text/html" charset="UTF-8" compact="true"/>
+<isset name="isSFRA" value="${pdict.issfra}" scope="page" />
+<isif condition="${isSFRA != true}"> 
+	<isinclude template="util/modules" /> 
+<iselse> 
+	<isinclude template="components/modules" />
+</isif>
+<isdecorate template="util/pt_empty">
+<script>
+$(".ui-dialog-titlebar-close").click(function () {
+	$(this).closest('.ui-dialog-content').dialog('close'); 
+});
+var opacity = $('#popupData').data('opacity');
+var backgroundColor = $('#popupData').data('background');
+//if (backgroundColor) {
+//	$('.ui-widget-overlay').css('background-image', 'none');
+//}
+
+/*NOT WORKING CAN'T FIND CLASS .ui-widget-overlay
+$(".openpay-overview" ).dialog({
+	open: function( event, ui ) {
+        $("body").css({
+	        
+	    });
+	    $(".ui-widget-overlay").css({
+	        background:"rgb(0, 0, 0)",
+	        opacity: "0.5 important",
+	        filter: "Alpha(Opacity=50)",
+	    });
+	    //console.log($(".ui-widget-overlay"));
+    }
+});*/
+</script>
+<isscript>
+var sitePreferences = require("int_openpay_core/cartridge/scripts/utils/OpenpayUtilities.js").getSitePreferencesUtilities();
+var openpayLogoStyle = sitePreferences.getLogoStyle();
+var openpayMinPrice = sitePreferences.getOpenpayMinPrice();
+var openpayMaxPrice = sitePreferences.getOpenpayMaxPrice();
+var priceRangeText = sitePreferences.getOpenpayPriceRangeBox() + ' ' + dw.value.Money(openpayMinPrice, dw.system.Site.getCurrent().getDefaultCurrency()).toFormattedString() + ' - ' + dw.value.Money(openpayMaxPrice, dw.system.Site.getCurrent().getDefaultCurrency()).toFormattedString();
+var openpayBackgroundImage = sitePreferences.getPopUpBackgroundImage();
+var popupBackgroundColor = sitePreferences.getPopUpBackgroundColor();
+var popupOpacity = sitePreferences.getPopUpOpacity();
+</isscript>
+
+<style>
+.ui-widget-overlay {
+  background:none; 
+  background-color: ${popupBackgroundColor};
+  opacity: ${popupOpacity};
+   }
+   
+</style>
+
+<div id="popupData" data-background="${popupBackgroundColor}" data-opacity="${popupOpacity}"></div>
+<div id="popUpimgspan" style="background-image:url('${openpayBackgroundImage.getAbsURL().toString()}');">
+<button type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close" role="button" title="Close"><span class="ui-button-icon-primary ui-icon ui-icon-closethick"></span><span class="ui-button-text">Close</span></button>
+	<div id="overview-container-head">
+	    <iscontentasset aid="${'openpayMerchantLogo'}" />
+	    <span id="openpayimgspan"><iscontentasset aid="${'openpay'+openpayLogoStyle}" /></span>
+	</div>
+    <span id="text">${sitePreferences.getOpenpayTagline()}</span>
+</div>
+<span id="overview-text-box">${priceRangeText}</span>
+<div id="overview-container-circles">
+    <div id=circlebox>
+	    <img id="circle" src="${URLUtils.staticURL('/images/OpHouse.png')}" alt="${Resource.msg('openpay.overview.shop', 'openpay', null)}">
+	    <p>Shop &<br/>checkout</p>
+    </div>
+    <div id=circlebox>
+	    <img id="circle" src="${URLUtils.staticURL('/images/OpPhone.png')}" alt="${Resource.msg('openpay.overview.payment', 'openpay', null)}">
+	    <p>Select Openpay as<br/>your payment method</p>
+    </div>
+    <div id=circlebox>
+	    <img id="circle" src="${URLUtils.staticURL('/images/OpCalendar.png')}" alt="${Resource.msg('openpay.overview.register', 'openpay', null)}">
+	    <p>Register & design<br/>your plan</p>
+    </div>
+</div>
+<div id="overview-container-footer">
+    <iscontentasset aid="openpayTermsAndConditions" />
+</div>
+
+</isdecorate>
